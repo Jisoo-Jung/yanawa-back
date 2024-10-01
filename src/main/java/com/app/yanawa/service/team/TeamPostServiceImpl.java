@@ -2,6 +2,7 @@ package com.app.yanawa.service.team;
 
 import com.app.yanawa.domain.team.TeamPostDTO;
 import com.app.yanawa.domain.team.TeamPostPagination;
+import com.app.yanawa.domain.team.TeamPostSearch;
 import com.app.yanawa.domain.team.TeamPostVO;
 import com.app.yanawa.repository.team.TeamPostDAO;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,8 @@ public class TeamPostServiceImpl implements TeamPostService {
     }
 
     @Override
-    public List<TeamPostDTO> getList(TeamPostPagination teamPostPagination) {
-        return teamPostDAO.findAll(teamPostPagination);
+    public List<TeamPostDTO> getList(TeamPostPagination teamPostPagination, TeamPostSearch teamPostSearch) {
+        return teamPostDAO.findAll(teamPostPagination, teamPostSearch);
     }
 
     @Override

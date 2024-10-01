@@ -2,6 +2,7 @@ package com.app.yanawa.mapper;
 
 import com.app.yanawa.domain.team.TeamPostDTO;
 import com.app.yanawa.domain.team.TeamPostPagination;
+import com.app.yanawa.domain.team.TeamPostSearch;
 import com.app.yanawa.domain.team.TeamVO;
 import com.app.yanawa.mapper.member.MemberMapper;
 import com.app.yanawa.mapper.team.TeamMapper;
@@ -54,16 +55,19 @@ public class TeamPostMapperTests {
         }
     }
 
-//    @Test
-//    public void testSelectAllTeamPost(){
-//        TeamPostPagination teamPostPagination = new TeamPostPagination();
-//        teamPostPagination.setPage(1);
-//        teamPostPagination.setTotal(teamPostMapper.selectTotal());
-//        teamPostPagination.progress();
-//        List<TeamPostDTO> teamPosts = teamPostMapper.selectAll(teamPostPagination);
-//        log.info("{}", teamPosts.size());
-//        teamPosts.stream().map(TeamPostDTO::toString).forEach(log::info);
-//    }
+    @Test
+    public void testSelectAllTeamPost(){
+        TeamPostPagination teamPostPagination = new TeamPostPagination();
+        TeamPostSearch teamPostSearch = new TeamPostSearch();
+
+        teamPostPagination.setPage(1);
+        teamPostPagination.setTotal(teamPostMapper.selectTotal());
+        teamPostPagination.progress();
+
+        List<TeamPostDTO> teamPosts = teamPostMapper.selectAll(teamPostPagination, teamPostSearch);
+        log.info("{}", teamPosts.size());
+        teamPosts.stream().map(TeamPostDTO::toString).forEach(log::info);
+    }
 }
 
 

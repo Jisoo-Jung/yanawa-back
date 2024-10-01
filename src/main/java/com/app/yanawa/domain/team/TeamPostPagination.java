@@ -8,7 +8,16 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Slf4j
 public class TeamPostPagination extends Pagination {
-    private String order;
+    private Integer page;
+    private int startRow;
+    private int endRow;
+    private int rowCount;
+    private int pageCount;
+    private int startPage;
+    private int endPage;
+    private int realEnd;
+    private boolean prev, next;
+    private int total;
 
     @Override
     public void progress() {
