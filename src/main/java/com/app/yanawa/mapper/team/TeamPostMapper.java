@@ -19,7 +19,7 @@ public interface TeamPostMapper {
 //    팀 모집 글 전체 조회(팀 모집 글 목록)
     public List<TeamPostDTO> selectAll();
 
-//    팀 모집 글 전체 개수 조회
+//    팀 모집 글 전체 개수 조회  
     public int selectTotal();
 
 //    검색 결과 개수 조회
