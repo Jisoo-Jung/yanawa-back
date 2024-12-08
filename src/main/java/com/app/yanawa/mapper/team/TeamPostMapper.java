@@ -17,8 +17,7 @@ public interface TeamPostMapper {
     public void insert(TeamPostVO teamPostVO);
 
 //    팀 모집 글 전체 조회(팀 모집 글 목록)
-    public List<TeamPostDTO> selectAll(@Param("teamPostPagination") TeamPostPagination teamPostPagination
-            ,@Param("teamPostSearch") TeamPostSearch teamPostSearch);
+    public List<TeamPostDTO> selectAll();
 
 //    팀 모집 글 전체 개수 조회
     public int selectTotal();

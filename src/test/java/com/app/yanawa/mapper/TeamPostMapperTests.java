@@ -56,18 +56,23 @@ public class TeamPostMapperTests {
     }
 
     @Test
-    public void testSelectAllTeamPost(){
-        TeamPostPagination teamPostPagination = new TeamPostPagination();
-        TeamPostSearch teamPostSearch = new TeamPostSearch();
-
-        teamPostPagination.setPage(1);
-        teamPostPagination.setTotal(teamPostMapper.selectTotal());
-        teamPostPagination.progress();
-
-        List<TeamPostDTO> teamPosts = teamPostMapper.selectAll(teamPostPagination, teamPostSearch);
-        log.info("{}", teamPosts.size());
-        teamPosts.stream().map(TeamPostDTO::toString).forEach(log::info);
+    public void testSelectAll(){
+        teamPostMapper.selectAll().stream().map(TeamPostDTO::toString).forEach(log::info);
     }
+
+//    @Test
+//    public void testSelectAllTeamPost(){
+//        TeamPostPagination teamPostPagination = new TeamPostPagination();
+//        TeamPostSearch teamPostSearch = new TeamPostSearch();
+//
+//        teamPostPagination.setPage(1);
+//        teamPostPagination.setTotal(teamPostMapper.selectTotal());
+//        teamPostPagination.progress();
+//
+//        List<TeamPostDTO> teamPosts = teamPostMapper.selectAll(teamPostPagination, teamPostSearch);
+//        log.info("{}", teamPosts.size());
+//        teamPosts.stream().map(TeamPostDTO::toString).forEach(log::info);
+//    }
 }
 
 

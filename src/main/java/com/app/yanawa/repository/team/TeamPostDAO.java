@@ -18,8 +18,8 @@ public class TeamPostDAO {
     public void save(TeamPostVO teamPostVO) { teamPostMapper.insert(teamPostVO); }
 
     //    팀 모집 글 전체 조회(팀 모집 글 목록)
-    public List<TeamPostDTO> findAll(TeamPostPagination teamPostPagination, TeamPostSearch teamPostSearch) {
-        return teamPostMapper.selectAll(teamPostPagination, teamPostSearch);
+    public List<TeamPostDTO> findAll() {
+        return teamPostMapper.selectAll();
     }
 
     //    팀 모집 글 전체 개수 조회

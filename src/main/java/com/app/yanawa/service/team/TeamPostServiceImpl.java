@@ -26,8 +26,8 @@ public class TeamPostServiceImpl implements TeamPostService {
     }
 
     @Override
-    public List<TeamPostDTO> getList(TeamPostPagination teamPostPagination, TeamPostSearch teamPostSearch) {
-        return teamPostDAO.findAll(teamPostPagination, teamPostSearch);
+    public List<TeamPostDTO> getList() {
+        return teamPostDAO.findAll();
     }
 
     @Override

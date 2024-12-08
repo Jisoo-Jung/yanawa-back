@@ -2,58 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.app.yanawa.mapper.team.TeamPostMapper">
 
-    <sql id="teamPostSearch">
-        <if test="teamPostSearch.keyword != null and teamPostSearch.keyword != 'null'.toString()">
-            <choose>
-                <when test="teamPostSearch.types != null">
-                    <foreach item="type" collection="teamPostSearch.types">
-                        <if test="type == 'team-name'.toString()">
-                            AND TEAM_NAME LIKE '%' || #{teamPostSearch.keyword} || '%'
-                        </if>
-                    </foreach>
-                </when>
-                <otherwise>
-                    TEAM_NAME LIKE '%' || #{teamPostSearch.keyword} || '%'
-                </otherwise>
-            </choose>
-        </if>
-    </sql>
-
     <insert id="insert" parameterType="teamPostVO">
         INSERT INTO SCOTT.TBL_TEAM_POST(ID, TEAM_ID, END_DATE, INFORMATION, POST_READ_COUNT ,CREATED_DATE, UPDATED_DATE)
         VALUES (SEQ_TEAM_POST.NEXTVAL, #{teamId}, #{endDate}, #{information}, #{postReadCount} ,CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
     </insert>
 
     <select id="selectAll" resultType="teamPostDTO">
-        SELECT P2.ID, TEAM_ID, TEAM_NAME, CITY, LOCAL_CITY, T.CREATED_DATE, END_DATE, POST_READ_COUNT, P2.CREATED_DATE, P2.UPDATED_DATE
-        FROM
-        (
-            SELECT ROWNUM R, ID, TEAM_ID, TEAM_NAME, CITY, LOCAL_CITY, T.CREATED_DATE, END_DATE, POST_READ_COUNT, P1.CREATED_DATE, P1.UPDATED_DATE
-            FROM
-            (
-                SELECT P.ID, TEAM_ID, T.TEAM_NAME, T.CITY, T.LOCAL_CITY, T.CREATED_DATE, P.END_DATE, P.POST_READ_COUNT, P.CREATED_DATE, P.UPDATED_DATE
-                FROM TBL_TEAM T JOIN TBL_TEAM_POST P
-                ON T.ID = P.TEAM_ID
-                <include refid="teamPostSearch"/>
-                ORDER BY
-                <choose>
-                    <when test="teamPostPagination.order == 'recent'.toString()">ID</when>
-                    <otherwise>POST_READ_COUNT</otherwise>
-                </choose>
-            ) P1
-        <![CDATA[
-           WHERE ROWNUM <= #{teamPostPagination.endRow}) P2
-        ON P2.R >= #{teamPostPagination.startRow}
-        ]]>
-    </select>
-
-    <select id="selectTotal">
-        SELECT COUNT(*) FROM TBL_TEAM_POST
-    </select>
-
-    <select id="selectTotalWithSearch">
-        SELECT COUNT(*) FROM TBL_TEAM T JOIN TBL_TEAM_POST P
-        ON T.ID = P.MEMBER_ID
-        <include refid="teamPostSearch"/>
+        SELECT P.ID, P.TEAM_ID, T.TEAM_NAME, T.CITY, T.LOCAL_CITY,
+        T.CREATED_DATE AS TEAM_CREATED_DATE,
+        P.END_DATE, P.POST_READ_COUNT,
+        P.CREATED_DATE AS POST_CREATED_DATE, P.UPDATED_DATE,
+        M.MEMBER_EMAIL AS TEAM_LEADER_EMAIL  <!-- 멤버 이메일 추가 -->
+        FROM TBL_TEAM T
+        JOIN TBL_TEAM_POST P ON T.ID = P.TEAM_ID
+        JOIN TBL_MEMBER M ON T.MEMBER_ID = M.ID   <!-- 멤버 테이블과 조인 -->
+        ORDER BY P.ID DESC
     </select>
 </mapper>

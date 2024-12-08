@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface TeamPostService {
     public TeamPostVO write(TeamPostVO teamPostVO);
-    public List<TeamPostDTO> getList(TeamPostPagination teamPostPagination, TeamPostSearch teamPostSearch);
+    public List<TeamPostDTO> getList();
     public int getTotal();
 }

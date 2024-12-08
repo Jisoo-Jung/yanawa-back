@@ -9,5 +9,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class TeamPostSearch extends Search {
+    String keyword;
     String[] types;
 }

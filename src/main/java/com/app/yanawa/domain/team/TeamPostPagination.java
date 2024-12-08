@@ -18,6 +18,7 @@ public class TeamPostPagination extends Pagination {
     private int realEnd;
     private boolean prev, next;
     private int total;
+    private String order;
 
     @Override
     public void progress() {
